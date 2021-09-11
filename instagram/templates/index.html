@@ -10,7 +10,25 @@
     <title>Instagram</title>
 </head>
 <body>
-    <h3>Instagram</h3>
+    {% for image in images %}
+    <div class="container">
+        <div class="card" style="margin-bottom: 5rem;">
+            <div class="card-header d-flex">
+                <a href=""></a>
+            </div>  
+            <img src="{{image.image.url}} " class="img-responsive" alt="">
+            <div class="card-body">
+                <form action="">
+                    {% csrf_token %}
+                    <button type="submit" name="image_id" value={{image.id}}
+                        style="border: 0px; background-color: transparent; margin-bottom: 1rem;"><i
+                            class="far fa-heart" id="heart"></i></button>
+                </form>
+            </div>
+        
+        </div>
+    </div>
+    {%endfor%}
 </body>
 </html>
 {%endblock%}
