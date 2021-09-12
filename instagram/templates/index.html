@@ -18,18 +18,39 @@
             </div>  
             <img src="{{image.image.url}} " class="img-responsive" alt="">
             <div class="card-body">
-                <form action="">
+                <form action="{% url 'like_photo' image_id=image.id %}">
                     {% csrf_token %}
                     <button type="submit" name="image_id" value={{image.id}}
                         style="border: 0px; background-color: transparent; margin-bottom: 1rem;"><i
                             class="far fa-heart"></i></button>
                 </form>
+                <div class="liked-count">{{image.likes.count}} likes</div>
                 <div class="posts">
                     <span class="post-link"> {{image.caption}} </span>
-                    <div class="text-muted" style="font-size: 1.4rem;margin-top: 1%;">comments...</div>
+                    <div class="text-muted" style="font-size: 1.2rem;margin-top: 1%;">comments...</div>
+                    {% for comment in comments %}
+                    {% if comment.image.id == image.id %}
+                    <div>
+                        <a href="#" class="likes"><em style="font-size: 1.2rem;">{{comment.user}}</em></a>
+                        <span class="post-link"><em style="font-size: 1.2rem;">{{comment.content}}</em></span>
+                    </div>
+                    {% endif %}
+                    {% endfor %}
+                    <div class="text-muted">{{image.posted_date | timesince }} ago</div>
                 </div>
             </div>
-        
+            <div class="card-footer" style="padding: 0;">
+                <form role="add_comment" , action="{% url 'comment' image_id=image.id %}">
+                    {% csrf_token%}
+                    <div class="input-group">
+                        <input type="text" class="form-control" placeholder="Add a comment" name="comment"
+                            style="font-size: 1.2rem; border: 0;">
+                        <div class="input-group-btn">
+                            <button class="btn" type="submit" style="font-size: 1.2rem;"> Post</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
     {%endfor%}
