@@ -28,10 +28,40 @@ class Image(models.Model):
     name= models.CharField(max_length=30)
     caption = models.CharField(max_length=30)
     profile = models.ForeignKey(Profile, on_delete=CASCADE,null=True)
-    likes = models.IntegerField(default=0)
-    comments = models.TextField(max_length=100)
+    likes = models.ManyToManyField(Profile,related_name='posts')
+    posted_date = models.DateTimeField(auto_now_add=True,null=True)
+
+    def __str__(self):
+        return self.name
+
+    def save_image(self):
+        self.save()
+
+    def delete_image(self):
+        self.delete()
+
+    def like_count(self):
+        return self.likes.count() 
+                  
 
 class Comments(models.Model):
     content  = models.TextField()
     posted_date = models.DateTimeField(auto_now_add=True)
-    user = models.ForeignKey(User,on_delete=models.CASCADE)   
+    user = models.ForeignKey(User,on_delete=models.CASCADE) 
+    image = models.ForeignKey(Image,on_delete=models.CASCADE,default =1, related_name= "comments")  
+
+    def __str__(self):
+        return self.content
+
+    def save_comment(self):
+        self.save()
+
+    def delete_comment(self):
+        self.delete()
+
+    @classmethod
+    def get_image_comments(cls,image):
+        return cls.objects.filter(image=image)   
+
+    class Meta:
+        ordering = ['-posted_date']             
