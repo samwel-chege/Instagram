@@ -6,7 +6,9 @@ from django.conf.urls.static import static
 
 urlpatterns = [
     path('', views.home, name = 'home'),
-    path('profile/<int:id>',views.profile,name = 'profile')
+    path('profile/<int:id>',views.profile,name = 'profile'),
+    path(r'^comment/(?P<image_id>\d+)', views.comment,name = "comment"),
+    path(r'^like/(?P<image_id>\d+)', views.like_photo, name = 'like_photo'),
     
 ]
 
