@@ -8,10 +8,10 @@ from django.db.models.signals import post_save
 
 class Profile(models.Model):
     user = models.OneToOneField(User,on_delete=models.CASCADE,null=True,related_name='user')
-    photo  = models.ImageField(upload_to='photos')
+    photo  = models.ImageField(upload_to='photos',default="img2.jpg")
     bio = models.TextField(max_length=1000)
-    followers = models.ManyToManyField(User,related_name='followers')
-    following = models.ManyToManyField(User,related_name='following')
+    followers = models.ManyToManyField(User,related_name='followers',blank=True)
+    following = models.ManyToManyField(User,related_name='following',blank=True)
 
     @receiver(post_save,sender = User)
     def update_user_profile(sender,instance,created, **kwargs):
@@ -20,7 +20,12 @@ class Profile(models.Model):
         try:
             instance.profile.save()
         except AttributeError:
-            pass        
+            pass  
+
+         
+    @classmethod
+    def search_user(cls,username): 
+        return User.objects.filter(username = username)          
 
     
 class Image(models.Model):
