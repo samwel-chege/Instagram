@@ -14,8 +14,9 @@
     <div class="container">
         <div class="card" style="margin-bottom: 5rem;">
             <div class="card-header d-flex">
-                <a href=""></a>
-            </div>  
+                <a href="{{image.profile.photo.url}}"></a>
+            </div> 
+             
             <img src="{{image.image.url}} " class="img-responsive" alt="">
             <div class="card-body">
                 <form action="{% url 'like_photo' image_id=image.id %}">
