@@ -1,0 +1,29 @@
+{%extends 'base.html'%} 
+{% block content %}
+<div class="container">
+
+  <div class="row">
+    {% if users%}
+      <h2 style="color: royalblue;">{{message}}</h2>
+    {% else %}
+      <h2> Found 0 users for the search Username {{message}}</h2>
+    {% endif %}
+
+  </div>
+
+  <div class="row">
+
+    {% for user in searched_user %}
+    <div class="col-sm-3">
+    <div class="card" style="width: 18rem;">
+        <img src="{{user.photo.url}}" class="img-responsive" style="width: 4rem; height: 4rem;" alt="">
+        <div class="card-body">
+          <h5 class="card-title">{{image.image_name}} </h5>
+        </div>
+      </div>
+    <br>
+      </div>
+    {% endfor %}
+  </div>
+</div>
+{% endblock %}
