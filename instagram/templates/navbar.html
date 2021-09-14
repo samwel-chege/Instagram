@@ -16,7 +16,7 @@
                 <a href="{% url 'admin:index' %}"><i class="fas fa-user-lock fa-1x ms-1" style="color: #06101a;"></i></a>
               </div>
             <!--Adding a search form-->
-            <form role="search" class="form-inline" action="">
+            <form role="search" class="form-inline" action="{% url 'search_users' %}">
               <div class="input-group">
                 <input type="text" class="form-control" placeholder="Search" aria-label="Username" aria-describedby="basic-addon1" name="user">
                 <div class="input-group-append" type="submit">
@@ -24,6 +24,9 @@
                 </div>
               </div>
             </form>
+            <div class="nav-icons">
+              <a href="upload/image"><i class="fa fa-upload" aria-hidden="true" style="color: #06101a;"></i></a>
+            </div>
         <!--search form end -->
         <div class="col-sm-6 col-md-6">
           <div class="dropdown">
@@ -37,6 +40,7 @@
                 <li><a class="dropdown-item" href="/logout">Logout</a></li>
                 {%else%}
                 <li><a class="dropdown-item" href="/login">Login</a></li>
+                <li><a class="dropdown-item" href="/upload/image">Upload photo</a></li>
                 <li><a class="dropdown-item" href="/signup">Signup</a></li>
                 {%endif%}
             </ul>
